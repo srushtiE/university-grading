@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- ng-app definition -->
+<html ng-app="UniversityRanking">
+<head>
+
+    <!-- title -->
+    <title>University Safety Ranking</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JQuery Dependency -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    <!-- Bootstrap Dependency -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Bootstrap-theme Dependency -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript Dependency -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- AngularJS Dependency -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+
+    <!-- Font-Awesome Dependency -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Angular-animate Dependency -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.min.js"></script>
+
+    <!-- Angular-Bootstrap Dependency -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- Application Angular Controller Dependencies -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="{{ url_for('static', filename='adminController.js') }}"></script>
+    <script src="{{ url_for('static', filename='searchController.js') }}"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="{{ url_for('static', filename='d3pie.min.js') }}"></script>
+
+
+</head>
+<body>
+<div ng-controller="AdminController">
+    <div class="image">
+        <h1 style="position: absolute;top: 10%;left: 56%;color: whitesmoke;font-weight: bolder;font-size: -webkit-xxx-large;">University Ranking</h1>
+        <img src="{{ url_for('static', filename='adminUni.png') }}" alt="SJSU" style="width:100%;">
+    </div>
+    <div>
+        <div class="row" style="padding-top: 1%;">
+            <div class="col-sm-offset-11">
+                <input type="button" class="btn-warning" value="Logout" ng-click="logout()"/>
+            </div>
+        </div>
+        <form name="detailForm">
+            <div class="tabbable">
+                <div style="padding-bottom:50px;">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#1" data-toggle="tab" style="padding-left:50px;padding-right:50px;">University Details</a>
+                        </li>
+                        <li>
+                            <a href="#2" data-toggle="tab" style="padding-left:50px;padding-right:50px;">On-Campus Crime Details</a>
+                        </li>
+                        <li>
+                            <a href="#3" data-toggle="tab" style="padding-left:50px;padding-right:50px;">University Grade</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="1">
+                        <div class="form-group row">
+                            <label for="uni-name" class="col-sm-offset-3 col-sm-2 form-control-label">University Name</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="uni-name" ng-model="uniname" placeholder="Please Enter University Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="address" class="col-sm-offset-3 col-sm-2 form-control-label">Address</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="address" ng-model="address" placeholder="Please Enter University Address" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="city" class="col-sm-offset-3 col-sm-2 form-control-label">City</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="city" ng-model="city" placeholder="Please Enter University City" required>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="padding-bottom:30px;">
+                            <label for="zip-code" class="col-sm-offset-3 col-sm-2 form-control-label">Zip Code</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="zip-code" ng-model="zipcode" placeholder="Please Enter University Zipcode" required>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="tab-pane" id="2">
+                        <div class="form-group row">
+                            <label for="murder" class="col-sm-offset-3 col-sm-2 form-control-label">Murder</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="murder" ng-model="murder" placeholder="Please enter murder statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="manSlaughter" class="col-sm-offset-3 col-sm-2 form-control-label">Negligent Manslaughter</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="manSlaughter" ng-model="manSlaughter" placeholder="Please enter man slaughter statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fSexOffence" class="col-sm-offset-3 col-sm-2 form-control-label">Forcible Sex Offense</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="fSexOffence" ng-model="fSexOffence" placeholder="Please enter forcible sex offence statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nfSexOffence" class="col-sm-offset-3 col-sm-2 form-control-label">Non-forcible Sex Offense</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="nfSexOffence" ng-model="nfSexOffence" placeholder="Please enter non-forcible sex offence statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="robbery" class="col-sm-offset-3 col-sm-2 form-control-label">Robbery</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="robbery" ng-model="robbery" placeholder="Please enter robbery statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="assault" class="col-sm-offset-3 col-sm-2 form-control-label">Aggravated Assault</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="assault" ng-model="assault" placeholder="Please enter aggravated assault statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="burglary" class="col-sm-offset-3 col-sm-2 form-control-label">Burglary</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="burglary" ng-model="burglary" placeholder="Please enter burglary statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="theft" class="col-sm-offset-3 col-sm-2 form-control-label">Motor Vehicle Theft</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="theft" ng-model="theft" placeholder="Please enter theft statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="arson" class="col-sm-offset-3 col-sm-2 form-control-label">Arson</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="arson" ng-model="arson" placeholder="Please enter arson statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="weapons" class="col-sm-offset-3 col-sm-2 form-control-label">Illegal Weapons Possession</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="weapons" ng-model="weapons" placeholder="Please enter illegal weapons possession statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="drug" class="col-sm-offset-3 col-sm-2 form-control-label">Drug Law Violation</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="drug" ng-model="drug" placeholder="Please enter drug law violation statistics or 0 if none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="liquor" class="col-sm-offset-3 col-sm-2 form-control-label">Liquor Law Violation</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="liquor" ng-model="liquor" placeholder="Please enter liquor law violation statistics or 0 if none" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="algorithm" class="col-sm-offset-3 col-sm-2 form-control-label">Algorithm</label>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="algorithm" ng-model="algorithm" value="svc">SVC
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="algorithm" ng-model="algorithm" value="dec">Decision Tree
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="algorithm" ng-model="algorithm" value="knn">K-Nearest Neighbour
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-offset-5 col-sm-2">
+                                <button type="submit" class="btn btn-secondary" ng-click="getAdminGrade()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane row" id="3" ng-init="initFunction()" ng-controller="SearchController" style="padding-bottom:50px;">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group col-sm-offset-3 col-sm-5" id="the-search-option">
+                                <input type="text" class="form-control" placeholder="Search" ng-model="selectedValue" uib-typeahead="entity.uni_id as entity.uni_name for entity in university.entitys | filter:$viewValue | limitTo:8" typeahead-input-formatter="formatLabel($model)">
+                            </div>
+                            <button type="submit" id="searchBtn" class="btn btn-default btn-sm" ng-click="showSearchResult()">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

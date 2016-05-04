@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- ng-app definition -->
+<html ng-app="UniversityRanking">
+<head>
+    <!-- title -->
+    <title>University Safety Ranking</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JQuery Dependency -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    <!-- Bootstrap Dependency -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Bootstrap-theme Dependency -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript Dependency -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- AngularJS Dependency -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+
+    <!-- Font-Awesome Dependency -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Angular-animate Dependency -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.min.js"></script>
+
+    <!-- Angular-Bootstrap Dependency -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- Application Angular Controller Dependencies -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="{{ url_for('static', filename='searchController.js') }}"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="{{ url_for('static', filename='d3pie.min.js') }}"></script>
+
+
+</head>
+<body>
+<div ng-controller="ApplicationController">
+    <div class="image">
+        <h1 style="position: absolute;top: 10%;left: 56%;color: whitesmoke;font-weight: bolder;font-size: -webkit-xxx-large;">University Ranking</h1>
+        <img src="{{ url_for('static', filename='San-Jose-State-University.png') }}" alt="SJSU" style="width:100%;">
+    </div>
+
+
+    <div class="row" style="padding-top: 2%;">
+        <div class="col-sm-offset-1 col-sm-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Login as Admin
+                </div>
+                <div class="panel-body">
+                    <form name="LoginForm">
+                        <div class="form-group row">
+                            <div class="col-sm-offset-2 col-sm-1">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </div>
+                            <label for="username" class="col-sm-2 form-control-label">Username</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="username" ng-model="username" placeholder="Please Enter Username" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-2 col-sm-1">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                            </div>
+                            <label for="password" class="col-sm-2 form-control-label">Password</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="password" ng-model="password" placeholder="Please Enter Password" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-5 col-sm-2">
+                                <button type="submit" class="btn btn-secondary" ng-click="adminLogin()">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-1 col-sm-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Login as Guest
+                </div>
+                <div class="panel-body">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <a href="" style="color:black;" ng-click="userLogin()">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
