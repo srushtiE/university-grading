@@ -40,7 +40,7 @@ uRank.controller('ResultController', function($scope, $log, $http, $window,$root
                     "location": "bottom-left"
                 },
                 "size": {
-                    "canvasWidth": 590,
+                    "canvasWidth": 690,
                     "pieInnerRadius": "61%",
                     "pieOuterRadius": "100%"
                 },
@@ -136,7 +136,7 @@ uRank.controller('ResultController', function($scope, $log, $http, $window,$root
                 "location": "bottom-left"
             },
             "size": {
-                "canvasWidth": 590,
+                "canvasWidth": 690,
                 "pieInnerRadius": "61%",
                 "pieOuterRadius": "100%"
             },
